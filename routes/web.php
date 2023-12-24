@@ -25,7 +25,7 @@ Route::get('/', function (Request $request) {
         // $request->session()->regenerateToken();
     // }
 
-    // $request->session()
+    $request->session()->increment('count');
     
     return Request()->session()->get('_token'); 
     // return App\Providers\RouteServiceProvider::HOME; 
