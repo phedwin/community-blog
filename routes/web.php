@@ -15,18 +15,5 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function (Request $request) {
-    // return view('welcome');
-    // $mode = ['light', 'dark']
-    $value = Request()->session()->put(['name' => "phedwine", 'mode' => ['light', 'dark']]);
-    // while(false)
-    // {
-        // $request->session()->invalidate();
-
-        // $request->session()->regenerateToken();
-    // }
-
-    $request->session()->increment('count');
-    
-    return Request()->session()->get('_token'); 
-    // return App\Providers\RouteServiceProvider::HOME; 
+    return file_exists(app_path('Http/Requests/**'));
 });
