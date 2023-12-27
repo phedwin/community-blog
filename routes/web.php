@@ -1,8 +1,9 @@
 <?php
 
-
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
 
 /*
@@ -18,6 +19,5 @@ use Illuminate\Support\Facades\RateLimiter;
 
 Route::get('/', function(Request $request)
 {
-    return "hello world";
-
-})->middleware('token_verify');
+    return User::all();
+});
