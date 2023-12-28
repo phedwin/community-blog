@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $query->where('active', 1);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

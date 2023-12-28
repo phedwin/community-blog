@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Crypt;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +20,19 @@ use Illuminate\Support\Facades\RateLimiter;
 
 Route::get('/', function(Request $request)
 {
-    return User::all();
+
+    $users = DB::select('select * from users where active = ?', [true]);
+
+    // return $request->token;
+    $session = Crypt::encrypt($request->session()->get('_token'));
+
+
+    return Crypt::decrypt($session) ===  session()->get('_token');
+    // return view('welcome', ['users' => $users]);
+});
+
+
+Route::get('mails', function()
+{
+    return view('mail.forget-password');
 });
