@@ -45,7 +45,8 @@ class sessioncontroller extends Controller
         $credentials = $request->only(['username', 'password']);
 
         auth()->attempt($credentials);
-
+        if(auth()->attempt())
+        auth()->login();
         $request->session()->regenerateToken();
     }
 
@@ -57,29 +58,5 @@ class sessioncontroller extends Controller
 
 
         return redirect('/home')->with(['msg' => 'logged in succesful']);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
