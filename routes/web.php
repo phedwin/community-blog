@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ForgetPasswordMailController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\sessioncontroller;
 use Illuminate\Cache\Console\ForgetCommand;
 use Illuminate\Support\Facades\Route;
@@ -19,22 +20,4 @@ use Illuminate\Support\Facades\Crypt;
 |
 */
 
-Route::get('/home', function(Request $request)
-{
-
-    $users = DB::select('select * from users where active = ?', [true]);
-
-    // return $request->token;
-    $session = Crypt::encrypt($request->session()->get('_token'));
-
-
-    // return Crypt::decrypt($session) ===  session()->get('_token');
-    return session()->all();
-    // return view('welcome', ['users' => $users]);
-});
-
-
-Route::get('mails', [ForgetPasswordMailController::class, 'index']);
-
-Route::get('register', [sessioncontroller::class, 'index']);
-Route::post('register', [sessioncontroller::class, 'store'])->name('register');
+Route::get('/home', [HomeController::class, 'index']);

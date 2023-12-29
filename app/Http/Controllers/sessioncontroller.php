@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\DB;
-use DB;
 
+use Illuminate\Http\Request;
 class sessioncontroller extends Controller
 {
     /**
@@ -16,6 +11,7 @@ class sessioncontroller extends Controller
      */
     public function index()
     {
+        dd($request);
         return view('Auth.register');
     }
 
@@ -26,13 +22,7 @@ class sessioncontroller extends Controller
      */
     public function store(Request $request)
     {
-        $validForm= $request->validate(['username' => 'required|min:3', 'password' => 'required', 'email' => 'email']);
-        
-        $validForm['username'] = $request->input('username');
 
-        User::create($validForm);
-
-        return redirect(RouteServiceProvider::HOME)->with(['msg' => 'acccount successful created']);
     }
 
 
@@ -42,44 +32,16 @@ class sessioncontroller extends Controller
      */
     public function authenticate(Request $request)
     {
-        $credentials = $request->only(['username', 'password']);
+        if($request->header() === null)
+        {
+            return "hello world";
+        }
 
-        auth()->attempt($credentials);
-
-        $request->session()->regenerateToken();
     }
 
 
     public function logout(Request $request)
     {
-        auth()->logout();
-        $request->session()->invalidate();
 
-
-        return redirect('/home')->with(['msg' => 'logged in succesful']);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
