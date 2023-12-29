@@ -22,7 +22,7 @@ class FormRequests extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => 'required',
+            "username" => 'required',
             "password" => "min:3, required",
             "email" => "email, required"
         ];

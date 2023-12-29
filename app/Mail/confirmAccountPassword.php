@@ -56,9 +56,9 @@ class confirmAccountPassword extends Mailable
     public function attachments(): array
     {
         return [
-            Attachment::fromPath('location')
-                ->as('done.pdf')
-                ->withMime('application/pdf')
+            // Attachment::fromPath('location')
+            //     ->as('done.pdf')
+            //     ->withMime('application/pdf')
         ];
     }
 }
