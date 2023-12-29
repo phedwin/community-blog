@@ -16,8 +16,5 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function()
-{
-    Inertia::render('helloworld');
-});
+Route::get('register', [sessionController::class, 'index']);
 
