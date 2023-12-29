@@ -1,13 +1,9 @@
 <?php
 
-use App\Http\Controllers\ForgetPasswordMailController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\sessioncontroller;
-use Illuminate\Cache\Console\ForgetCommand;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Crypt;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +16,8 @@ use Illuminate\Support\Facades\Crypt;
 |
 */
 
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/', function()
+{
+    Inertia::render('helloworld');
+});
+

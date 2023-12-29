@@ -11,7 +11,7 @@ class sessioncontroller extends Controller
      */
     public function index()
     {
-        dd($request);
+        // dd($request);
         return view('Auth.register');
     }
 
