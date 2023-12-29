@@ -1,4 +1,4 @@
-# Community Forum
+# iNet Community Forum
 
 ## Welcome to our Community Forum!
 
