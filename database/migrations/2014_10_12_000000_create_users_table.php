@@ -19,16 +19,15 @@ return new class extends Migration
             $table->id()
                 ->comment('this should auto increment');
             $table->boolean('active')
-                ->default(true);
-            $table->string('name');//->first();
-            $table->string('email');//->unique();
+                ->default(false);
+            $table->string('username');
+            $table->string('email');
             
             $table->timestamp('email_verified_at')
                 ->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->dateTimeTz('updated_at');
-            $table->timestamp('created_at')->nullable();
+           $table->timestamps();
         });
     }
 
