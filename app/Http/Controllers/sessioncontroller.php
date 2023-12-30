@@ -2,46 +2,28 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+
 class sessioncontroller extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        // dd($request);
-        return view('Auth.register');
-    }
+        $data = [
+            'msg' => 'hello from everyone'
+        ];
 
-   
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-
+        return Inertia::render('Auth/session', $data);
     }
 
 
-    
-    /**
-     * Display the specified resource.
-     */
-    public function authenticate(Request $request)
+    public function store(User $user)
+
     {
-        if($request->header() === null)
-        {
-            return "hello world";
-        }
-
-    }
-
-
-    public function logout(Request $request)
-    {
-
+        return Inertia::render(
+            'Auth/register', 
+            ['users' => $user]
+        );
     }
 }
