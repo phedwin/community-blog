@@ -1,15 +1,18 @@
 
 
 <script setup>
-import { ref } from 'vue'
-const data = ref('phedwine ochieng');
+import PrimaryButton from '../Shared/PrimaryButton.vue'
 
-// const computed
+
+defineProps({ users: Object});
+
 </script>
 
 <template>
     <div>
         <p>Login Form</p>
-        {{ data.value }}
+         
+
+        <PrimaryButton>Login</PrimaryButton>
     </div>
 </template>
