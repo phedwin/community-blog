@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,7 +51,7 @@ class User extends Authenticatable
         // 'password' => 'hashed',
     ];
 
-    public function scopeActiceUsers($query)
+    public function scopeActiveeUsers($query)
     {
         return $query->where('active', 1);
     }
@@ -56,5 +59,10 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public static function active(Builder $query)
+    {
+        return  $query->where('active', false);
     }
 }

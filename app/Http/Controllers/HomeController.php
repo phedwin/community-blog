@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
@@ -12,7 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');// ['user' => Auth::user()]);
+        return Inertia::render(auth()->check() ? 'Layout/AuthLayout' : 'Layout/GuestLayout' );
     }
 
     
@@ -21,7 +22,7 @@ class HomeController extends Controller
      */
     public function show(string $id)
     {
-        // ret
+        
     }
     
 }
