@@ -8,22 +8,17 @@ use Inertia\Inertia;
 
 class sessioncontroller extends Controller
 {
-    public function index()
-    {
-        $data = [
-            'msg' => 'hello from everyone'
-        ];
+   
+    public function store()
 
-        return Inertia::render('Auth/session', $data);
+    {
+        
+        return Inertia::render('Auth/GuestLayout', ['name' => 'phedwine']);
     }
 
-
-    public function store(User $user)
+    public function index()
 
     {
-        return Inertia::render(
-            'Auth/register', 
-            ['users' => $user]
-        );
+        return Inertia::render('Auth/session');
     }
 }
