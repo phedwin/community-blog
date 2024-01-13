@@ -1,10 +1,6 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\sessioncontroller;
-use App\Models\User;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,18 +13,5 @@ use Inertia\Inertia;
 |
 */
 
-// Route::get('register', [sessionController::class, 'index']);
-Route::get('/register', function()
-{
-    $users = User::all();
-
-    return Inertia::render('Auth/session', ['users' => $users]);
-});
-
-Route::get('users', function()
-{
-
-    return Inertia::render('Auth/session');
-});
 
 
