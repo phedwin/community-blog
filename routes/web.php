@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
+use Inertia\Inertia;
 
 
 /*
@@ -14,4 +17,20 @@
 */
 
 
+Route::get("/",function()
+{
+    return Inertia::render('Home', [
+        'name'=> 'ochieng phedwine',
+        'frameworks'=> [
+            'laravel', 'vue', 'inertia'
+        ],
+    ]);
+});
 
+Route::get('settings', function() {
+    return Inertia::render('Settings');
+});
+
+Route::get('users', function() {
+    return Inertia::render('Users');
+});
