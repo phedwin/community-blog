@@ -7,6 +7,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -24,6 +25,24 @@ class User extends Authenticatable
      */
 
 
+    public function blogs() :HasMany
+    {
+        return $this->hasMany(Blog::class);
+    }
+    public function scopeActiveUsers(Builder $query): Builder
+    {
+        return $query->where("active", rand(0, 1));
+    }
+
+    public function scopeFilerUsers(Builder $query): Builder
+    {
+        return $query->when(Request()->get('search') ? function($search)
+            {
+                // $query->where('username', 'like' .$search. 'like');
+            } 
+            : null
+        );
+    }
 
     protected $fillable = [
         'username',
