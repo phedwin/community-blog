@@ -29,14 +29,20 @@
                 Save user
             </button>
         </form>
+        
+
     </div>
 </template>
 
 <script setup lang="ts">
-// import { Inertia } from '@inertiajs/inertia';
-import { router } from '@inertiajs/vue3';
+
+import { router, useRemember } from '@inertiajs/vue3';
 import { reactive } from 'vue';
 
+// form helper >>> its reactive and the best way to refactor this
+// so useForm?
+
+//TODO
 
 let form = reactive({
     username: ' ', 
@@ -44,7 +50,13 @@ let form = reactive({
     password :' '
 })
 
-const submit = () => {
+const rem = useRemember({
+    username: null,
+    email : null
+
+})
+
+const submit = ()  => {
     router.post('/users',form)
 }
 
