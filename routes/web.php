@@ -3,6 +3,8 @@
 use App\Models\Blog;
 use App\Models\Post;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -42,15 +44,20 @@ Route::get('settings', function() {
 
 Route::get('users', function() {
 
+    
+    // dd(Auth::user()->only('email', 'password', 'username'));
 
-    return Inertia::render('Users', [
+    return Inertia::render('Users/Index', [
         'users'=>  User::activeUsers()
+        //restrict this to only push username & email 
+        // at this point its just demo and evrything from db can be seen when the request is made
             ->orderByDesc('id')
             ->paginate(1),
-        // 'posts' => User::find(1)->blogs
         'posts' => User::with('blogs')->paginate(1)
     ]);
 });
+
+
 
 
 Route::post('/users', function(User $user)
@@ -66,6 +73,8 @@ Route::post('/users', function(User $user)
 
 
     ($user->getGuarded());
+
+    dd(auth()->user());
     // auth()->login(User::create($validated));
     $password  = encrypt($user->find(1)->only('password'));
     (decrypt($password));
@@ -79,8 +88,9 @@ Route::post('/users', function(User $user)
 
 Route::get('users/create', function()
 {
+    
     return Inertia::render('Users/Create');
-});
+})->middleware('guest');
 
 Route::post('users', function()
 {
@@ -95,11 +105,24 @@ Route::post('users', function()
 
     //if passes validation then create users
 
-    User::create($attributes);
+    $user  = User::create($attributes);
 
     // redirect to users page
+
+    auth()->login($user);
 
     return redirect('users')->with(['msg' => 'user created successfully']);
 
     
+});
+
+
+Route::post('logout', function(){
+    auth()->logout();
+
+    session()->invalidate();
+
+    session()->regenerateToken();
+
+    return redirect(RouteServiceProvider::HOME)->with(['msg' => "logged out"]);
 });

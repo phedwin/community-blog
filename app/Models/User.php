@@ -29,19 +29,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Blog::class);
     }
+
     public function scopeActiveUsers(Builder $query): Builder
     {
         return $query->where("active", rand(0, 1));
     }
 
-    public function scopeFilerUsers(Builder $query): Builder
+    public function setPasswordAttribute($value)
     {
-        return $query->when(Request()->get('search') ? function($search)
-            {
-                // $query->where('username', 'like' .$search. 'like');
-            } 
-            : null
-        );
+        $this->attributes['password'] = bcrypt($value);
     }
 
     protected $fillable = [
@@ -80,8 +76,5 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public static function active(Builder $query)
-    {
-        return  $query->where('active', false);
-    }
+    
 }
