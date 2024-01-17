@@ -23,6 +23,18 @@ use Inertia\Inertia;
 
 
 
+/****
+ * 
+ * 
+ * alot of this code would be later moved to specific controlller
+ 
+ */
+
+
+// Route::get('register', function()
+// {
+//     return Inertia::render('User/Session');
+// });
 
 Route::get("/",function()
 
@@ -47,10 +59,11 @@ Route::get('users', function() {
     
     // dd(Auth::user()->only('email', 'password', 'username'));
 
-    return Inertia::render('Users/Index', [
+    return Inertia::render('Users/Session', [
         'users'=>  User::activeUsers()
         //restrict this to only push username & email 
         // at this point its just demo and evrything from db can be seen when the request is made
+        // so huh this is supposed to be map(fn($user) => [add here])
             ->orderByDesc('id')
             ->paginate(1),
         'posts' => User::with('blogs')->paginate(1)
