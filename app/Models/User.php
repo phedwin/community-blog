@@ -25,21 +25,6 @@ class User extends Authenticatable
      */
 
 
-    public function blogs() :HasMany
-    {
-        return $this->hasMany(Blog::class);
-    }
-
-    public function scopeActiveUsers(Builder $query): Builder
-    {
-        return $query->where("active", rand(0, 1));
-    }
-
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
-
     protected $fillable = [
         'username',
         'email',
@@ -66,15 +51,8 @@ class User extends Authenticatable
         // 'password' => 'hashed',
     ];
 
-    public function scopeActiveeUsers($query)
-    {
-        return $query->where('active', 1);
-    }
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
+    
 
     
 }
