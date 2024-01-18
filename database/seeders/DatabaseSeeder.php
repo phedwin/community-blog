@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Blog;
+use App\Models\Comment;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -18,10 +19,17 @@ class DatabaseSeeder extends Seeder
         
         User::factory(10)->create();
 
-
-        Blog::factory(10)->create([
-            'user_id' => User::find(1)
+        Post::factory(10)->create([
+            'user_id' => User::find(1)->id
         ]);
+
+        Comment::factory(10)->create(
+            [
+                'user_id' => User::find(1)->id,
+                'post_id' => Post::find(1)->id
+                // 'post_id' => User::with('posts')->get('id')
+            ]
+        );
 
     }
 }
