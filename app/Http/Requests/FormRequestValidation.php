@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 
-class FormRequests extends FormRequest
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class FormRequestValidation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +24,19 @@ class FormRequests extends FormRequest
     public function rules(): array
     {
         return [
+            'username' => ['required' , 'min:3'] ,
+            'password' => ['required' , 'min:6'],
+            'email' => ['email', 'required']
 
+            /**
+             * 
+             *@column in unique could be null
+             * 
+             * here 
+             * 
+             * 
+             * public static function unique($table, $column = 'NULL'){}
+             */
         ];
     }
 }
