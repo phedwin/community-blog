@@ -2,6 +2,8 @@
 
 return [
 
+    
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -14,8 +16,10 @@ return [
     */
 
     'defaults' => [
+
         'guard' => 'web',
         'passwords' => 'users',
+
     ],
 
     /*
