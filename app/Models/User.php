@@ -53,6 +53,18 @@ class User extends Authenticatable
     ];
 
 
+    /**
+     * 
+     * wouldnt need mutators 
+     * $table->binary('profile_photo')
+     * 
+     * so hmmm here 
+     */
+    public function getProfilePhotoAttribute($value)
+    {
+        return base64_decode($value);
+    }
+
     public function posts() : HasMany
     {
         return $this->hasMany(Post::class);
@@ -70,6 +82,7 @@ class User extends Authenticatable
         return $query->where('active', rand(1,0));
     }
 
+    
     public function category() : HasOne
     {
         return $this->hasOne(Category::class);// assumes user_id on fly
