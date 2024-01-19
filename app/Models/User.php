@@ -4,8 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -60,5 +63,22 @@ class User extends Authenticatable
 
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function scopeActive(Builder $query) : Builder
+    {
+        return $query->where('active', rand(1,0));
+    }
+
+    public function category() : HasOne
+    {
+        return $this->hasOne(Category::class);// assumes user_id on fly
+
+        //under the hodd relationships works like 
+        dd($category = static::self()->category ?? throw new ModelNotFoundException);
+
+        return $category;
+
+        return $this->hasOne(Category::class, 'category_users_id', 'owner_key');
     }
 }

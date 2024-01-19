@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Auth\SessionController;
+use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
-
-
+use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,19 +18,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::controller(SessionController::class)->group(function()
+Route::get('/', function()
 {
+    return redirect('bash/dash');
+});
 
-    //handle registration
-    Route::get('/register', 'index');
-        // ->name('show.session')
-        // ->middleware('guest');
-    Route::post('/', 'store')
-        ->name('register');
+Route::get('/bash/dash', function()
 
-    // handle user login
+{
+    return User::find(1)->only('username', 'email');
+    return 'this is the token '.session()->get('_token');
+});
 
-    //Route::get('/login', 'login'); // could have made single controller function with invoke but hmmm too lazy :)
-    //Route::get('/login', 'authenticate'); // stick to laravel create, store, detroy namepoints hmmm ? yeah.
+Route::get('/users/{id}', function($id)
+{
+    $category = Category::all();
+
+    return $category;
 });
 
