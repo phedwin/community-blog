@@ -10,14 +10,14 @@ class Post extends Model
 {
     use HasFactory;
 
-    
+
     // protected $keyType = 'string'; 
 
-    public function categories() 
+    public function categories()
     {
         return $this->belongsTo(Category::class);
     }
-    public function users() :BelongsTo
+    public function users(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
