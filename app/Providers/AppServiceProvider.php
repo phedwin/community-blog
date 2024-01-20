@@ -25,9 +25,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::shouldBeStrict();
+
+        // Model::unguard();
         
         Blueprint::macro('auditFields', function() 
         {
+            /** @var Blueprint $this */
             $this->timestamps();
             $this->softDeletes();
         });
