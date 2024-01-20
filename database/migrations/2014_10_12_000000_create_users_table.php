@@ -50,7 +50,15 @@ return new class extends Migration
             $table->string('password');
 
             $table->rememberToken();
-           $table->timestamps();
+
+            /**
+             * 
+             * in the boot of AppServiceProvider we define a blueprint macro
+             * w/ softdeletes && timestamps
+             * 
+             */
+
+            $table->auditFields();
         });
     }
 

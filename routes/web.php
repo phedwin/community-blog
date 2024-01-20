@@ -5,6 +5,7 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Schema\Blueprint;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,22 +19,26 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 */
 
 
+
+/**
+ * 
+ * lazy loading is disabled
+ */
+
 Route::get('/', function()
 {
-    return redirect('bash/dash');
+    // Retrieve a collection of users without eager loading
+    $users = User::all();
+
+    // Access the 'posts' relationship for each user, triggering lazy loading
+    foreach ($users as $user) {
+        $posts = $user->posts;
+
+        return $posts;
+        // Do something with the posts for each user
+    }
+
+    return $users;
 });
 
-Route::get('/bash/dash', function()
-
-{
-    return User::find(1)->only('username', 'email');
-    return 'this is the token '.session()->get('_token');
-});
-
-Route::get('/users/{id}', function($id)
-{
-    $category = Category::all();
-
-    return $category;
-});
 

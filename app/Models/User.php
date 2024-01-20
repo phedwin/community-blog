@@ -38,7 +38,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        // 'password',
+        'password',
         'remember_token',
     ];
 
@@ -85,13 +85,22 @@ class User extends Authenticatable
     
     public function category() : HasOne
     {
+        //1
         return $this->hasOne(Category::class);// assumes user_id on fly
 
-        //under the hodd relationships works like 
+        //under the hood relationships works like 
+        //2
         dd($category = static::self()->category ?? throw new ModelNotFoundException);
 
+        //3
         return $category;
 
-        return $this->hasOne(Category::class, 'category_users_id', 'owner_key');
+        //4
+        return $this->hasOne(Category::class, 'category_users_id', /***here w/ owner key */'owner_key');
+    }
+
+    public function scopeStatus()
+    {
+        // build query that only gets published
     }
 }
