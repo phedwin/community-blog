@@ -24,8 +24,9 @@ return new class extends Migration
              * 
              * todo
              */
-            $table->enum('status', ['draft', 'published']);
-            // $table->enum('status', [Status::DRAFT, Status::PUBLISHED]);
+            // $table->enum('status', ['draft', 'published']);
+            $table->enum('status', [Status::DRAFT, Status::PUBLISHED])
+                ->default(Status::DRAFT);
 
             $table->foreignId('user_id')
                 ->constrained()
