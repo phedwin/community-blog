@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -16,8 +17,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id()
-                ->comment('this should auto increment');
+            $table->id();
 
             /**
              * 
@@ -25,6 +25,8 @@ return new class extends Migration
              * also thinking of Storage facade
              * still dont know how binary exactly works.
              * 
+             * 
+             * mutators and accessor w/ base64_encode() && base64_decode($value)
              */
             $table->binary('profile_photo')
                 ->nullable(); 
@@ -42,23 +44,32 @@ return new class extends Migration
 
             $table->string('username');
 
-            $table->string('email');
-            
-            $table->timestamp('email_verified_at')
-                ->nullable();
+            $table->string('email')
+                ->unique();
 
             $table->string('password');
 
             $table->rememberToken();
 
+            $table->json('user_info')
+                ->default(new Expression('(JSON_ARRAY())'));
+
             /**
              * 
              * in the boot of AppServiceProvider we define a blueprint macro
-             * w/ softdeletes && timestamps
+             * w/ softdeletes && timestamps -> created && updated at
              * 
              */
 
             $table->auditFields();
+
+
+            /**
+             * 
+             * get this inside audit
+             */
+            $table->timestamp('email_verified_at')
+                ->nullable();
         });
     }
 

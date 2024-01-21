@@ -16,6 +16,7 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        
         return [
             'category_name' => $this->faker->unique()->word(),
             'slug' => $this->faker->unique()->slug()

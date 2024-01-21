@@ -1,11 +1,10 @@
 <?php
 
 use App\Models\Category;
-use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\Schema\Blueprint;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,13 +18,28 @@ use Illuminate\Database\Schema\Blueprint;
 */
 
 
+Route::get('/', function() {
+    return User::all();
+});
+Route::get('/loops', function()
+{
+
+    // dd(Category::all()->count());
+    for ($i=0; $i < Category::all()->count(); $i++) { 
+        $Category = Category::find($i) ;//?? throw new ModelNotFoundException();
+
+        return $Category;
+    }
+    return $Category;
+    // return Category::find(20)->id ?? throw new ModelNotFoundException();
+});
 
 /**
  * 
  * lazy loading is disabled
  */
 
-Route::get('/', function()
+Route::get('/lazy-loading', function()
 {
     // Retrieve a collection of users without eager loading
     $users = User::all();
