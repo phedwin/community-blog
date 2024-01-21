@@ -18,8 +18,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => fake()->text(),
-            'context' => fake()->paragraph(5)
-            
+            'context' => fake()->paragraph(5),
         ];
     }
 }

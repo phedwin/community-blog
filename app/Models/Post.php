@@ -13,6 +13,7 @@ class Post extends Model
 
     // protected $keyType = 'string'; 
 
+
     public function categories()
     {
         return $this->belongsTo(Category::class);

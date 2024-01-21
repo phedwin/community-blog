@@ -33,12 +33,13 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->foreignId('categories_id')
-                ->constrained(); // this shouldnt affect posts
+            // $table->foreignId('category_id')
+            //     ->constrained(); 
 
             $table->text('title');
             $table->text('context');
-            $table->timestamps();
+            
+            $table->auditFields();
         });
         
     }
