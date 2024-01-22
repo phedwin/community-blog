@@ -1,6 +1,5 @@
 
 <template>
-
     <div>
         <form >
             <slot></slot>

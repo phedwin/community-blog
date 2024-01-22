@@ -19,8 +19,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 Route::get('/', function() {
-    return User::all();
+    // return User::all();
 });
+
 Route::get('/loops', function()
 {
 

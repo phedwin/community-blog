@@ -77,13 +77,13 @@ class User extends Authenticatable
      * 
      * doesnt work in the meantime
      */
-    public function userinfo()
+    public function userInfo()
     {
         return Attribute::make(
             //the set id needs to be dynamic in the meantime we are hard coding
             set : fn($value) =>  $this->attributes[$value] = json_encode(User::find(1)),
             get : fn($value) => $value
-        );
+        )->shouldCache();
     }
 
     
