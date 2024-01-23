@@ -4,7 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-
+use App\Casts\Json;
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,8 +51,13 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'user_info' => 'json', 
+    protected $casts = 
+    [
+        'status' => Status::class,    
+        'user_info' => Json::class, // realized halfway this cast json doesnt actually exist in laravel casts
+        //we can deserialize this with array or ` php artisan make:cast Json`
+        //here 
+        // 'user_info' => 'json',
         'email_verified_at' => 'datetime',
         // 'password' => 'hashed',
     ];
@@ -59,34 +65,28 @@ class User extends Authenticatable
 
     /**
      * 
-     * wouldnt need mutators 
+     * wouldnt need mutators but huh?
      * $table->binary('profile_photo')
      * 
      * so hmmm here 
      */
     
-    public function getProfilePhotoAttribute($value)
-    {
-        return base64_decode($value);
-    }
-
-    
-    /**
-     * todo
-     * take user and json_encode
-     * 
-     * doesnt work in the meantime
-     */
-    public function userInfo()
+    public function profilePhoto() : Attribute
     {
         return Attribute::make(
-            //the set id needs to be dynamic in the meantime we are hard coding
-            set : fn($value) =>  $this->attributes[$value] = json_encode(User::find(1)),
-            get : fn($value) => $value
-        )->shouldCache();
+            get : fn($value) => base64_decode($value),
+            set : fn($value) => base64_encode($value)
+        );
     }
 
-    
+    public function userinfo() : Attribute
+    {
+
+        return Attribute::make(
+
+        );
+    }
+
 
     public function posts() : HasMany
     {
@@ -102,6 +102,7 @@ class User extends Authenticatable
 
     public function scopeActive(Builder $query) : Builder
     {
+        // true  || false 
         return $query->where('active', rand(1,0));
     }
    

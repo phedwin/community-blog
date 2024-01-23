@@ -19,6 +19,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
 
+            $table->string('firstName', 25);
+
+            $table->string('secondName', 25);
+
             /**
              * 
              * IDK maybe $table->string() would be easier to implement and store
