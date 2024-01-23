@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
