@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Status;
+use App\Http\Controllers\Auth\SessionController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -18,12 +19,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 |
 */
 
-
-Route::get('/', function() {
-    dd(Status::class);
-    return User::find(1)->secondName;
-});
-
+Route::get('/', [SessionController::class, 'index']);
+Route::post('/', [SessionController::class, 'store']);
 Route::get('/loops', function()
 {
 

@@ -12,7 +12,7 @@ class SessionController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Auth/Sessions');
+        return Inertia::render('Auth/Create');
     }
     
     public function store(FormRequestValidation $request)
