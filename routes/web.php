@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\SessionController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
@@ -21,27 +23,27 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 |
 */
 
-Route::get('/', [SessionController::class, 'index']);
-Route::post('/', [SessionController::class, 'store']);
-Route::get('/loops', function()
+Route::get('collection', function()
 {
+    $collection = collect(['phedwine', 'ochieng', null])->map(fn($users) => ucfirst($users))
+        ->reject(fn($users) => empty($users));
 
-    // dd(Category::all()->count());
-    for ($i=0; $i < Category::all()->count(); $i++) { 
-        $Category = Category::find($i) ;//?? throw new ModelNotFoundException();
-
-        return $Category;
-    }
-    return $Category;
-    // return Category::find(20)->id ?? throw new ModelNotFoundException();
+    return $collection;
+});
+Route::get('/cache', function()
+{
+    
+    fn() =>  DB::update('update users set firstName = ? where id =  ?', ['John Doe', 3]); //['John Doe', 3]);  
+    Cache::remember('users', 60, fn() => $users = User::with('posts')->get());
+    // a user loaded posts and added some new posts ;)
+    
+    return Cache::get('users');
+    return Cache::has('cache') ?? throw new  ModelNotFoundException; // wow, learnt false !=  null; wow. 
 });
 
-/**
- * 
- * lazy loading is disabled
- */
 
-Route::get('/lazy-loading', function()
+//testing Model::shouldBeStrict();
+Route::get('/lazy', function()
 {
     // Retrieve a collection of users without eager loading
     $users = User::all();

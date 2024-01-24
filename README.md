@@ -5,7 +5,6 @@
 This is a space for community members to connect, ask questions, share ideas, and collaborate on various topics related to our platform. Feel free to explore the different categories and engage with fellow community members.
 
 ## Categories
-
 1. [General Discussion](#general-discussion)
 2. [Q&A](#qanda)
 3. [Project Collaboration](#project-collaboration)

@@ -79,15 +79,6 @@ class User extends Authenticatable
         );
     }
 
-    public function userinfo() : Attribute
-    {
-
-        return Attribute::make(
-
-        );
-    }
-
-
     public function posts() : HasMany
     {
         return $this->hasMany(Post::class);

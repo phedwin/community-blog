@@ -26,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::shouldBeStrict();
 
+        Model::unguard(); // bad idea.
+
         
         Blueprint::macro('auditFields', function() 
         {
