@@ -23,6 +23,8 @@ return new class extends Migration
 
             $table->string('secondName', 25);
 
+        
+
             /**
              * 
              * IDK maybe $table->string() would be easier to implement and store
