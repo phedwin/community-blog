@@ -2,10 +2,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-
         "dev": "vite",
         "build": "vite build"
-        
     },
     "devDependencies": {
         "@types/vue": "^2.0.0",
