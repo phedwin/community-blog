@@ -37,7 +37,7 @@ use function PHPSTORM_META\map;
  */
 Route::get('collection', function()
 {
-    $users = User::all(); //how do i check if this returns a collection so i can collect()->except([]) prevent everything from hititng client
+    $users = User::all(); //how do i check if this returns a collection so i can collect()->except([]) prevent everything from hitting client
     //collections   ...Woah How can Laravel be this gooodddd? this little collect() helper is doing magic.
     // return $users === collect() ? 1  : 0; // make sense
     // dd($users); // but this returns an eloquent collection hmmmmmm? 
