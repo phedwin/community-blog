@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-
-
+use function PHPSTORM_META\map;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,22 +21,76 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+/***
+ | ------------------------------------------------------------------------
+ | ["Author" => "phedwin"];
+ | ------------------------------------------------------------------------
+ |
+ | There is alot of unneccessary return statements hmmmmm;
+ | This will be removed// or u can remove to suit ur needs.
+ | im testing out alot of laravel features & I genuinely want to see how they work.
+ | Im not routing any controller that u can see in the controllers namespace, alot of code here
+ | is experimental & will be removed after I actually see how this works :))))))
+ |
+ |
+ | 
+ */
 Route::get('collection', function()
 {
-    $collection = collect(['phedwine', 'ochieng', null])->map(fn($users) => ucfirst($users))
-        ->reject(fn($users) => empty($users));
+    $users = User::all(); //how do i check if this returns a collection so i can collect()->except([]) prevent everything from hititng client
+    //collections   ...Woah How can Laravel be this gooodddd? this little collect() helper is doing magic.
+    // return $users === collect() ? 1  : 0; // make sense
+    // dd($users); // but this returns an eloquent collection hmmmmmm? 
+    // return $users->map(fn($user) => $user)->except(['firstName', 'secondName']);
 
-    return $collection;
+    //1
+    $usersCollection = collect($users->toArray());
+
+    $filteredUsers = $usersCollection->except(['firstName', 'secondName']);
+    // Now $filteredUsers contains the users with the specified attributes filtered out
+    return $filteredUsers[0];
+
+    //2
+    $filteredUsers = collect($users->makeVisible(['firstName', 'secondName'])->toArray());
+    // Now $filteredUsers contains the users with the specified attributes visible
+
+
+    $median = collect(['first' => 34,'second' => 54,'third' => 6,'fourth' => 56])->map(fn($data) => $data )->except(['first', 'second']);
+
+    return $median;
+
+    $totals = collect(['first' => 34,'second' => 54,'third' => 6,'fourth' => 56])->map(fn($data) => $data )->countBy()->all();
+
+
+    // dd($totals); 
+    // what if we had a collection and just dd on the fly then dd again huhhhhhhh? Here
+    $numbers = collect([1,23,435,45])->dd();
+
+    dd($numbers); // funny dunnoo why i expected a dd inside a dd. maybe its just $this->dump(...args); >> $this->dump($this->dunmp()) ?? Yeahhhh
+
+    $contains = collect(['first' => 34,'second' => 54,'third' => 6,'fourth' => 56])->contains(fn($data) => $data);
+    // kinda like collection contains
+
+    return json_decode($contains);
+    foreach(User::all()->chunk(3) as $users)
+    {
+        return $users->uppercase(); //btw this is defined as macro inside serviceprovider
+    }
+
+
+
+
 });
 Route::get('/cache', function()
 {
-    
+    //this should work but it dont, it works in my head tho. 
+    //Maybe it comes prebaked against SQL injection & i can just pass inline arguments.
     fn() =>  DB::update('update users set firstName = ? where id =  ?', ['John Doe', 3]); //['John Doe', 3]);  
-    Cache::remember('users', 60, fn() => $users = User::with('posts')->get());
+    Cache::remember('users', 60, fn() => User::with('posts')->get());
     // a user loaded posts and added some new posts ;)
     
     return Cache::get('users');
+
     return Cache::has('cache') ?? throw new  ModelNotFoundException; // wow, learnt false !=  null; wow. 
 });
 
