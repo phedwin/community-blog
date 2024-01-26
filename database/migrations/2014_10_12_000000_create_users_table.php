@@ -19,29 +19,15 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
 
-            $table->string('firstName', 25);
+            $table->string('firstName', 25)
+                ->nullable();
 
-            $table->string('secondName', 25);
+            $table->string('secondName', 25)
+                ->nullable();
 
-        
-
-            /**
-             * 
-             * IDK maybe $table->string() would be easier to implement and store
-             * also thinking of Storage facade
-             * still dont know how binary exactly works.
-             * 
-             * 
-             * mutators and accessor w/ base64_encode() && base64_decode($value)
-             */
             $table->binary('profile_photo')
                 ->nullable(); 
-            /**
-             * @this comes with a unique key everytime remember is enable w/ client
-             * but im trying out w/ bool that defaults to false
-             * 
-             * something like $table->string('remember) -> to hold the (string)key
-             */
+
             $table->boolean('remember')
                 ->default(false);
 
@@ -60,20 +46,8 @@ return new class extends Migration
             $table->json('user_info')
                 ->default(new Expression('(JSON_ARRAY())'));
 
-            /**
-             * 
-             * in the boot of AppServiceProvider we define a blueprint macro
-             * w/ softdeletes && timestamps -> created && updated at
-             * 
-             */
-
             $table->auditFields();
-
-
-            /**
-             * 
-             * get this inside audit
-             */
+            
             $table->timestamp('email_verified_at')
                 ->nullable();
         });

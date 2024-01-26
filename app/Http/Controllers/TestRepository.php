@@ -20,18 +20,20 @@ class TestRepository extends Controller
 
         // return $users;
         //on the vue page we can render 
-        Inertia::render('Dashboard/Index', ['users' => $users]);
+        return Inertia::render('Dashboard/Index', ['users' => $users]);
     }
 
     public function show(string $id)
     {
-        return $this->users->find($id) ?? throw new ModelNotFoundException;// or we could find & fail
+        $show = $this->users->find($id) ?? throw new ModelNotFoundException;// or we could find & fail
+
+        return Inertia::render('Dashboard/Show', ['show' => $show]);
     }
 
     public function destroy(string $id) 
     {    
         $this->authorize(UserPermission::class, User::class);
-        
+
         return $this->users->delete($id);
     }
 

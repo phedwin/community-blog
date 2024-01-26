@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FormRequestValidation;
 use App\Models\User;
+use App\Policies\UserPermission;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Access\Gate;
 use Inertia\Inertia;
 
 class SessionController extends Controller
@@ -33,11 +33,11 @@ class SessionController extends Controller
             
     }
 
-    public function destroy($id)
-    {
-        // run some policy or gates
-        
-        
+    public function destroy(string $id) 
+    {    
+        $this->authorize(UserPermission::class, User::class);
+
+        return $this->users->delete($id);
     }
     
     
