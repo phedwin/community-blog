@@ -1,15 +1,14 @@
 <?php
 
-use App\Enums\Status;
 use App\Http\Controllers\Auth\SessionController;
-use App\Models\Category;
+use App\Http\Controllers\TestRepository;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Artisan;
 
-use function PHPSTORM_META\map;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +34,17 @@ use function PHPSTORM_META\map;
  |
  | 
  */
+
+
+Route::get('/users', [TestRepository::class, 'index']);
+Route::get('/users/{id}', [TestRepository::class, 'show']);
+Route::get('test', [TestRepository::class, 'index']);
+Route::get('create', [SessionController::class, 'index']);
+
+
 Route::get('collection', function()
 {
-    $users = User::all(); //how do i check if this returns a collection so i can collect()->except([]) prevent everything from hititng client
+    $users = User::all(); //how do i check if this returns a collection so i can collect()->except([]) prevent everything from hitting client
     //collections   ...Woah How can Laravel be this gooodddd? this little collect() helper is doing magic.
     // return $users === collect() ? 1  : 0; // make sense
     // dd($users); // but this returns an eloquent collection hmmmmmm? 
@@ -110,6 +117,24 @@ Route::get('/lazy', function()
     }
 
     return $users;
+});
+
+
+
+Route::get('artisan', function()
+{
+    Artisan::command('question', function () 
+    {
+        $name = $this->ask('What is your name?');
+
+        $language = $this->choice('Which language do you prefer?', [
+            'PHP',
+            'Ruby',
+            'Python',
+        ]);
+
+        $this->line('Your name is '.$name.' and you prefer '.$language.'.');
+});
 });
 
 

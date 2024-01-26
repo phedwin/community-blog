@@ -115,8 +115,4 @@ class User extends Authenticatable
         return $this->hasOne(Category::class);// assumes user_id on fly
     }
 
-    public function scopeStatus()
-    {
-        // build query that only gets published
-    }
 }
