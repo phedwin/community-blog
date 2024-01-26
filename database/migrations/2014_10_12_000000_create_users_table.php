@@ -41,7 +41,8 @@ return new class extends Migration
 
             $table->string('password');
 
-            $table->rememberToken();
+            $table->rememberToken()
+                ->nullable();
 
             $table->json('user_info')
                 ->default(new Expression('(JSON_ARRAY())'));

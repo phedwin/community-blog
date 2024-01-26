@@ -17,7 +17,7 @@ class SessionController extends Controller
     }
     public function index()
     {
-        return Inertia::render('Auth/Create');
+        return Inertia::render('Auth/Register');
     }
     
     public function store(FormRequestValidation $request)
@@ -35,7 +35,7 @@ class SessionController extends Controller
 
     public function destroy(string $id) 
     {    
-        $this->authorize(UserPermission::class, User::class);
+        $this->authorize(UserPermission::class, new User());
 
         return $this->users->delete($id);
     }

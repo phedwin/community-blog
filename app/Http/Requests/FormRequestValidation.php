@@ -26,7 +26,8 @@ class FormRequestValidation extends FormRequest
         return [
             'username' => ['required' , 'min:3'] ,
             'password' => ['required' , 'min:6'],
-            'email' => ['email', 'required']
+            'email' => ['email', 'required'],
+            // 'profile_photo' => ['required', 'file']
         ];
     }
 }
