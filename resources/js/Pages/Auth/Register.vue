@@ -7,9 +7,11 @@
     <p class="underline">{{ form.email }} </p>
     <form @submit.prevent="form.post('/register', {preserveScroll : true})"
     >
+        <p v-if="form.errors.email"> {{form.errors.email}} </p>
         <input 
             v-model="form.username" 
             type="text" 
+            
             :error="form.errors.username"
             placeholder="Username" 
             name="username"

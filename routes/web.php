@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Auth\SessionController;
+use App\Http\Controllers\Mail\signupWeeklyNewsletter;
 use Illuminate\Support\Facades\Route;
 
 
@@ -21,3 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('register', [SessionController::class, 'index']);
 
 Route::post('register', [SessionController::class, 'store']);
+
+//mails
+Route::get('newsletter', [signupWeeklyNewsletter::class, 'index']);
+Route::post('mails', [signupWeeklyNewsletter::class, 'store']);
