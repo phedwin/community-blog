@@ -27,16 +27,6 @@ class FormRequestValidation extends FormRequest
             'username' => ['required' , 'min:3'] ,
             'password' => ['required' , 'min:6'],
             'email' => ['email', 'required']
-
-            /**
-             * 
-             *@column in unique could be null
-             * 
-             * here 
-             * 
-             * 
-             * public static function unique($table, $column = 'NULL'){}
-             */
         ];
     }
 }

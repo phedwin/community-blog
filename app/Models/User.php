@@ -54,12 +54,9 @@ class User extends Authenticatable
     protected $casts = 
     [
         'status' => Status::class,    
-        'user_info' => Json::class, // realized halfway this cast json doesnt actually exist in laravel casts
-        //we can deserialize this with array or ` php artisan make:cast Json`
-        //here 
-        // 'user_info' => 'json',
+        'user_info' => Json::class,
         'email_verified_at' => 'datetime',
-        // 'password' => 'hashed',
+        'password' => 'hashed',
     ];
 
 

@@ -29,18 +29,8 @@ class AppServiceProvider extends ServiceProvider
 
         Collection::macro('uppercase', function()
             {
-                /*
-                *
-                *this is from the docs and it wouldnt work on null values
-
-                Collection::macro('toUpper', function () {
-                    return $this->map(function (string $value) {
-                        return Str::upper($value);
-                    });
-                });
-                */
+                /** @var map  $this */
                 return $this->map(fn($str):?string => Str::upper($str)) 
-                // return type of optional string since we cant pass string sometimes it can be null :D
                     ->reject(fn($str) => empty($str));
             });
 
