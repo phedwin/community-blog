@@ -1,13 +1,9 @@
 <?php
 
 
-use App\Http\Controllers\Auth\SessionController;
-use App\Http\Controllers\Mail\signupWeeklyNewsletter;
-use App\Models\User;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-use function PHPSTORM_META\map;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +16,6 @@ use function PHPSTORM_META\map;
 |
 */
 
-Route::get('/', function()
-{
-    $data = ['name' => "phedwine", "lastname" => "john", "greetings" => "hey", "position" => 1];
-    return Inertia::render('Auth/Login', ['data' => $data]);
 
-});
+
+Route::get('/', [DashboardController::class, 'index']);
