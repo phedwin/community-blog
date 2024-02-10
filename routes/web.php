@@ -3,9 +3,11 @@
 
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Mail\signupWeeklyNewsletter;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
-
+use function PHPSTORM_META\map;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function()
+{
+    $data = ['name' => "phedwine", "lastname" => "john", "greetings" => "hey", "position" => 1];
+    return Inertia::render('Auth/Login', ['data' => $data]);
 
-Route::get('register', [SessionController::class, 'index']);
-
-Route::post('register', [SessionController::class, 'store']);
-
-//mails
-Route::get('newsletter', [signupWeeklyNewsletter::class, 'index']);
-Route::post('mails', [signupWeeklyNewsletter::class, 'store']);
+});

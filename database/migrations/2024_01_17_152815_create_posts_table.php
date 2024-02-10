@@ -17,14 +17,7 @@ return new class extends Migration
         
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-
-            /**
-             * 
-             * create enums from seperate file
-             * 
-             * todo
-             */
-            // $table->enum('status', ['draft', 'published']);
+            
             $table->enum('status', [Status::DRAFT, Status::PUBLISHED])
                 ->default(Status::DRAFT);
 
@@ -32,9 +25,6 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-
-            // $table->foreignId('category_id')
-            //     ->constrained(); 
 
             $table->text('title');
             $table->text('context');
