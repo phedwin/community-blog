@@ -22,17 +22,7 @@ class DatabaseSeeder extends Seeder
 
         Post::factory(10)->create([
             'user_id' => User::find(1)->id,
-            // 'category_id' =>  Category::find(1)->id ?? 1
         ]);
-
-        Comment::factory(10)->create(
-            [
-                'user_id' => User::find(1)->id,
-                'post_id' => Post::find(1)->id
-                // 'post_id' => User::with('posts')->get('id')
-            ]
-        );
-        Category::factory(4)->create();
 
     }
 }

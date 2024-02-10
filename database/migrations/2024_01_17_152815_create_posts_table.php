@@ -12,10 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-   
 
-        
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) 
+        {
+
             $table->id();
 
             $table->enum('status', [Status::DRAFT, Status::PUBLISHED])
@@ -28,6 +28,7 @@ return new class extends Migration
 
             $table->text('title');
             $table->text('context');
+            $table->text('excerpt');
             
             $table->auditFields();
         });
