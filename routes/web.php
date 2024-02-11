@@ -17,10 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Route::get('/', [DashboardController::class, 'index']);
-
-//handle user reg & login
-
-Route::get('/register', [SessionController::class, 'index']);
-Route::post('/register', [SessionController::class, 'store']);
+Route::get('register', [SessionController::class, 'index'])->middleware('guest');
+Route::post('register', [SessionController::class, 'store'])->name('register.store');

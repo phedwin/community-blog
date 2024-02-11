@@ -1,17 +1,20 @@
 
-
+<!-- this component would make so much sense if the styling wasnt hardcoded -->
 <template>
     <div>
-        <label 
-            :for="id" 
-            class="block"
+        <input 
+            :placeholder="placeholder"
+            :type="type" 
+            :name="name"
+            class="mb-4 mt-1 px-4 py-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-white" 
         >
-         {{  label }}
-        </label>
+
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
-defineProps({ label : { type : String } , id : {   type : String, required :true}})
+defineProps({ type : {type :String, default: 'text'}, name : { type :String}, placeholder : {type : String}});
+
 </script>
+
