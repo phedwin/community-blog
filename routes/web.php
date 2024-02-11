@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [DashboardController::class, 'index']);
+
+//handle user reg & login
+
+Route::get('/register', [SessionController::class, 'index']);
+Route::post('/register', [SessionController::class, 'store']);

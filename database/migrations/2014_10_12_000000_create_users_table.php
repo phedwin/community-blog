@@ -19,12 +19,6 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
 
-            $table->string('firstName', 25)
-                ->nullable();
-
-            $table->string('secondName', 25)
-                ->nullable();
-
             $table->binary('profile_photo')
                 ->nullable(); 
 

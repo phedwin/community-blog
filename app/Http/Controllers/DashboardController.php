@@ -15,9 +15,9 @@ class DashboardController extends Controller
             ->where('active',false)
             ->latest()
             ->get()
-            ->collect()
-            ->map(fn($users) => $users['posts']);
- 
+         ;   // ->collect()
+            // ->map(fn($users) => $users['posts']);
+        return $posts->map(fn($users) => $users['posts']);
         return Inertia::render('Dashboard/Index', ['posts' => $posts]);
     }
 }
