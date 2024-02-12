@@ -4,7 +4,7 @@ use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\DashboardController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Route;
-
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +21,8 @@ Route::get('/', function()
     return redirect(RouteServiceProvider::HOME);
 });
 
+
+Route::get('/posts/{id}', [DashboardController::class, 'show']);
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('register', [SessionController::class, 'index'])->name('login')->middleware('guest');
 Route::post('register', [SessionController::class, 'store'])->name('register.store');

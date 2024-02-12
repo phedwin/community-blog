@@ -1,35 +1,39 @@
 
 
 <template>
-  <div>
-    <p>welcome back {{ user.username }}</p>
+  <div class="container mx-auto mt-8">
+    <p class="text-3xl font-semibold mb-4">Welcome back, {{ user.username }}</p>
+    
     <form 
         action="/logout" 
         method="post"
-      >
-      <div class="text-centre">
-        <Link 
-          href="/logout"
-          method="post"
-          as="button"
-          type="button"
-          class="bg-green-400 px-4 rounded"
+    >
+      <div 
+          class="text-center mb-6"
+        >
+        <button 
+            type="submit" 
+            class="bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
         >
           Logout
-        </Link>
+        </button>
       </div>
-        
-      </form>
+
+    </form>
+    
     <ul>
-      <li v-for="post in posts" :key="post.id">
-        <p class="underline">The Title</p>
-        {{ post.title }}
-        <Link href="/" class="text-blue-700"> {{ post.context }} </Link>
+      <li v-for="post in posts" :key="post.id" class="mb-4">
+        <p class="text-lg font-semibold text-blue-700 mb-2">The Title</p>
+        <p class="text-gray-800">{{ post.title }}</p>
+        <Link 
+          :href=" 'posts/'.concat(post.id)" 
+          class="text-blue-500 hover:text-blue-700"
+        >
+          Read More
+          </Link>
       </li>
     </ul>
-
-    </div>
-
+  </div>
 </template>
 
 <script setup>
@@ -37,8 +41,7 @@ import { usePage, Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 const page = usePage();
-
 const user = computed(() => page.props.auth.user);
-defineProps({posts : Object})
-
+defineProps({ posts: Object });
 </script>
+
