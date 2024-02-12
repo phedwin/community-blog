@@ -18,33 +18,41 @@
                         method="post"
                         @submit.prevent="register"
                    >
-                    <input 
-                        type="text" 
-                        placeholder="username" 
-                        v-model="users.username"
-                    >
-                    <input 
-                        type="text" 
-                        placeholder="email" 
-                        v-model="users.email"
-                    >
-                    <input 
-                        type="text" 
-                        placeholder="username" 
-                        v-model="users.password"
-                    >
-                    <button>Register</button>
+                        <TextInput
+                            placeholder="username"
+                            v-model:values="users.username"
+                        >
+
+                        </TextInput>
+
+                        <TextInput
+                            placeholder="email"
+                            v-model:values="users.email"
+                        >
+
+                        </TextInput>
+
+                        <TextInput
+                            placeholder="password"
+                            v-model:values="users.password"
+                        >
+
+                        </TextInput>
+
+                        <PrimaryButton>
+                            Register
+                        </PrimaryButton>
                    </form>
                 </div>
             </div>
     </div>
 </template>
 
-<script setup lang="ts">
-import { reactive, ref } from 'vue';
-import PrimaryButton from '../../Shared/PrimaryButton.vue'
+<script setup>
 import TextInput from '../../Shared/TextInput.vue'
-import { router, useForm, usePage } from '@inertiajs/vue3';
+import { reactive } from 'vue';
+import PrimaryButton from '../../Shared/PrimaryButton.vue'
+import { router, usePage } from '@inertiajs/vue3';
 
 const page = usePage();
 const users = reactive({

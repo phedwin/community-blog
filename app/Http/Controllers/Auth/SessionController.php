@@ -13,26 +13,35 @@ use Inertia\Inertia;
 class SessionController extends Controller
 {
 
-    public function __construct(protected User $user, protected Post $post, protected HandleInertiaRequests $handle){}
+    public function __construct(protected User $user,protected Request $request){}
     public function index()
     {
         return Inertia::render('Auth/Session');
     }
 
-    public function store(Request $request)
+    public function store()
     {
 
-        $attributes = $request->validate([
+        $attributes = $this->request->validate([
             'username' => 'required',
             'password' => 'min:3',
             'email' => 'required | min:3'
         ]);
 
-        $user = User::create($attributes);
+        $user = $this->user->create($attributes);
 
         auth()->login($user);
 
         return redirect(RouteServiceProvider::HOME)->with(['msg' => 'account created']);
 
+    }
+
+    public function destroy()
+    {
+        auth()->logout();
+
+        $this->request->session()->invalidate();
+
+        return redirect('register')->with(['msg' => "you have logged out"]);
     }
 }
